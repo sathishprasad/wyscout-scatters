@@ -20,7 +20,7 @@ from matplotlib.font_manager import FontProperties
 
 
 @st.cache(allow_output_mutation=True)
-def connect():
+def connect(gender):
 # Enter your Snowflake account information
     ACCOUNT = "uh37708.europe-west2.gcp"
     USER = "totalfootballanalysis"
@@ -37,16 +37,26 @@ def connect():
     database=DATABASE,
     schema=SCHEMA
     )
-   
-    data = pd.read_sql_query('SELECT * FROM MASTERDATA',cnx)
 
-    data = data[data['Type of data']=='per 90']
-    data['League'] = data['League Name']
-    data['Position'] = data['Categorical position']
-    data['Name'] = data['Player']
-    data['Minutes'] = data['Minutes played']
-    data['Age'] = data['Age'].fillna(0)
-    data['Age'] = pd.to_numeric(data['Age'], errors='coerce')
+    if gender=='Men':
+        data = pd.read_sql_query('SELECT * FROM MASTERDATA',cnx)
+        data = data[data['Type of data']=='per 90']
+        data['League'] = data['League Name']
+        data['Position'] = data['Categorical position']
+        data['Name'] = data['Player']
+        data['Minutes'] = data['Minutes played']
+        data['Age'] = data['Age'].fillna(0)
+        data['Age'] = pd.to_numeric(data['Age'], errors='coerce')
+    else:
+        data = pd.read_sql_query("SELECT * FROM WOMENDATA",cnx)
+        data['League'] = data['League Name']
+        data['Position'] = data['Categorical position']
+        data['Name'] = data['Player']
+        data['Minutes'] = data['Minutes played']
+
+
+
+
    
     return data
       
@@ -460,20 +470,22 @@ def scatter(data):
 
 
 
+            if st.session_state['gender']=='Men':
+                min_age = min(df['Age'])
 
-            min_age = min(df['Age'])
+                max_age = max(df['Age'])
 
-            max_age = max(df['Age'])
+                min_age = int(min_age)
+                max_age = int(max_age)
 
-            min_age = int(min_age)
-            max_age = int(max_age)
-
-            age = st.sidebar.slider('Select a range of age',min_age, max_age, (min_age, max_age))
+                age = st.sidebar.slider('Select a range of age',min_age, max_age, (min_age, max_age))
 
             temp = data[data['Name']==player_name]
 
-            df.drop(df[df['Age'] <= age[0]].index, inplace = True)
-            df.drop(df[df['Age'] >= age[1]].index, inplace = True)
+
+            if st.session_state['gender']=='Men':
+                        df.drop(df[df['Age'] <= age[0]].index, inplace = True)
+                        df.drop(df[df['Age'] >= age[1]].index, inplace = True)
 
             df = pd.concat([df, temp], ignore_index=True)
 
@@ -522,19 +534,21 @@ def scatter(data):
             metric1 = st.sidebar.selectbox("Choose metric1",m1)
             metric2 = st.sidebar.selectbox("Choose metric2",m2)
 
-            min_age = min(df['Age'])
+            if st.session_state['gender']=='Men':
+                min_age = min(df['Age'])
 
-            max_age = max(df['Age'])
+                max_age = max(df['Age'])
 
-            min_age = int(min_age)
-            max_age = int(max_age)
+                min_age = int(min_age)
+                max_age = int(max_age)
 
-            age = st.sidebar.slider('Select a range of age',min_age, max_age, (min_age, max_age))
+                age = st.sidebar.slider('Select a range of age',min_age, max_age, (min_age, max_age))
 
             temp = data[data['Team']==player_name]
 
-            df.drop(df[df['Age'] <= age[0]].index, inplace = True)
-            df.drop(df[df['Age'] >= age[1]].index, inplace = True)
+            if st.session_state['gender']=='Men':
+                df.drop(df[df['Age'] <= age[0]].index, inplace = True)
+                df.drop(df[df['Age'] >= age[1]].index, inplace = True)
 
             df = pd.concat([df, temp], ignore_index=True)
             
@@ -580,20 +594,21 @@ def scatter(data):
             metric1 = st.sidebar.selectbox("Choose metric1",m1)
             metric2 = st.sidebar.selectbox("Choose metric2",m2)
 
-            min_age = min(df['Age'])
+            if st.session_state['gender']=='Men':
+                min_age = min(df['Age'])
 
-            max_age = max(df['Age'])
+                max_age = max(df['Age'])
 
-            min_age = int(min_age)
-            max_age = int(max_age)
+                min_age = int(min_age)
+                max_age = int(max_age)
 
-            age = st.sidebar.slider('Select a range of values',min_age, max_age, (min_age, max_age))
+                age = st.sidebar.slider('Select a range of values',min_age, max_age, (min_age, max_age))
 
             temp = data[data['Name']==player_name]
 
-
-            df.drop(df[df['Age'] <= age[0]].index, inplace = True)
-            df.drop(df[df['Age'] >= age[1]].index, inplace = True)
+            if st.session_state['gender']=='Men':
+                        df.drop(df[df['Age'] <= age[0]].index, inplace = True)
+                        df.drop(df[df['Age'] >= age[1]].index, inplace = True)
 
             df = pd.concat([df, temp], ignore_index=True)
             df = pd.concat([df, temp1], ignore_index=True)
@@ -648,14 +663,15 @@ def scatter(data):
             metric1 = st.sidebar.selectbox("Choose metric1",m1)
             metric2 = st.sidebar.selectbox("Choose metric2",m2)
 
-            min_age = min(df['Age'])
+            if st.session_state['gender']=='Men':
+                min_age = min(df['Age'])
 
-            max_age = max(df['Age'])
+                max_age = max(df['Age'])
 
-            min_age = int(min_age)
-            max_age = int(max_age)
+                min_age = int(min_age)
+                max_age = int(max_age)
 
-            age = st.sidebar.slider('Select a range of values',min_age, max_age, (min_age, max_age))
+                age = st.sidebar.slider('Select a range of values',min_age, max_age, (min_age, max_age))
 
             #temp = data[data['Name']==player_name]
 
@@ -663,13 +679,14 @@ def scatter(data):
             
             df = pd.concat([data,df])
 
-            df.drop(df[df['Age'] <= age[0]].index, inplace = True)
-            df.drop(df[df['Age'] >= age[1]].index, inplace = True)
+            if st.session_state['gender']=='Men':
+                df.drop(df[df['Age'] <= age[0]].index, inplace = True)
+                df.drop(df[df['Age'] >= age[1]].index, inplace = True)
 
             df = pd.concat([df,x])
             df = pd.concat([df,y])
 
-            
+
             df = df[['Name','Team','Season','Position','League',metric1,metric2]]
             
             but = st.sidebar.button("Create scatter")
@@ -679,7 +696,9 @@ def scatter(data):
     
  
 def app():
-    data = connect()
+    gender = st.sidebar.selectbox('Men or Women',['Men','Women'])
+    st.session_state['gender'] = gender
+    data = connect(gender)
     st.title("Viz generator")
     st.markdown("Choose appropriate filters from the menu bar on your left hand side.")
     cols = ['TFA','SS','BFM','Minnesota','Avid','Game Changer FA','IMAD']
