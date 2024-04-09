@@ -701,7 +701,7 @@ def app():
     data = connect(gender)
     st.title("Viz generator")
     st.markdown("Choose appropriate filters from the menu bar on your left hand side.")
-    cols = ['TFA','SS','BFM','Minnesota','Avid','Game Changer FA','IMAD']
+    cols = ['TFA','SS','BFM','Minnesota','Avid','Game Changer FA','IMAD','SISU']
     template = st.sidebar.selectbox("Select colour template",cols)
     if template == 'TFA':
         st.session_state['template'] = 'TFA'
@@ -795,6 +795,18 @@ def app():
             st.session_state['R1'] = st.session_state['h1']
             st.session_state['R2'] = st.session_state['h3']
             st.session_state['bg2'] = '#101824'
+    elif template == 'SISU':
+        st.session_state['template'] = 'SISU'
+        st.session_state['bg'] = '#14243b'
+        st.session_state['text'] = '#ffffff'
+        st.session_state['h1'] = '#f4d450'
+        st.session_state['h2'] = '#ff5e57'
+        st.session_state['h3'] = '#ffffff'
+        st.session_state['c'] = st.session_state['h2']
+        st.session_state['b'] = 'white'
+        st.session_state['R1'] = st.session_state['h1']
+        st.session_state['R2'] = st.session_state['h3']
+        st.session_state['bg2'] = '#101824'
 
     viz = st.sidebar.selectbox('Choose visualisation',("Scatter plot","Nothing"))
      
