@@ -809,8 +809,6 @@ def app():
         st.session_state['bg2'] = '#101824'
 
     viz = st.sidebar.selectbox('Choose visualisation',("Scatter plot","Nothing"))
-     
-
 
     if viz=='Scatter plot':
         scatter(data)
