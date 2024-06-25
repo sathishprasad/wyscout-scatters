@@ -1,6 +1,6 @@
-streamlit==1.11.1
+streamlit
 pandas==1.3.5
-numpy
+numpy==1.26.4
 snowflake-connector-python==3.0.1
 mplsoccer==1.2.2
 matplotlib
