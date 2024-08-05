@@ -701,7 +701,7 @@ def app():
     data = connect(gender)
     st.title("Viz generator")
     st.markdown("Choose appropriate filters from the menu bar on your left hand side.")
-    cols = ['TFA','SS','BFM','Minnesota','Avid','Game Changer FA','IMAD','SISU']
+    cols = ['TFA','SS','BFM','Minnesota','Avid','Game Changer FA','IMAD','SISU','Virtual Scout']
     template = st.sidebar.selectbox("Select colour template",cols)
     if template == 'TFA':
         st.session_state['template'] = 'TFA'
@@ -807,6 +807,20 @@ def app():
         st.session_state['R1'] = st.session_state['h1']
         st.session_state['R2'] = st.session_state['h3']
         st.session_state['bg2'] = '#101824'
+    elif template == 'Virtual Scout':
+        st.session_state['template'] = 'Virtual Scout'
+        st.session_state['bg'] = '#171516'
+        st.session_state['bg2'] = '#140f0f'
+        st.session_state['text'] = '#ffffff'
+        st.session_state['h1'] = '#f2e806'
+        st.session_state['h2'] = '#f73c93'
+        st.session_state['h3'] = '#FFFFFF'
+        st.session_state['c'] = '#171616'
+        st.session_state['b'] = 'white'
+        path = "PPTelegrafUltraBold.otf"
+        st.session_state['font_normal2'] = FontProperties(fname=path)
+        path1 = "PPTelegrafRegular.otf"
+        st.session_state['font_normal1'] = FontProperties(fname=path1)
 
     viz = st.sidebar.selectbox('Choose visualisation',("Scatter plot","Nothing"))
 
