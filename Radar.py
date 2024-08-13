@@ -6,14 +6,12 @@ Created on Tue Jul 20 19:34:51 2021
 import streamlit as st
 import numpy as np
 import pandas as pd
-import warnings
-import os
-from mplsoccer import PyPizza, add_image, FontManager
 from PIL import Image
 import matplotlib.pyplot as plt
 import snowflake.connector
-from mplsoccer import Pitch, VerticalPitch
 from matplotlib.font_manager import FontProperties
+
+st.set_option('deprecation.showPyplotGlobalUse', False)
 
 
 
@@ -127,14 +125,17 @@ def create_scatter(player,data,metric1,metric2,pos,league,szn):
     logo1 = Image.open('logo3.png')
     avid = Image.open('avid.png')
     gcfc = Image.open('gcfc.png')
+    vs = Image.open('Virtual-Scout-White.png')
 
     new_size1 = (100, 130)
-    new_size = (170, 170)   # Adjust the size as needed
+    new_size = (170, 170)
+    new_size2= (150,30)# Adjust the size as needed
     fdj_cropped_resized = fdj_cropped.resize(new_size1)
     logo_resized = logo.resize(new_size)
     logo3_resized = logo1.resize(new_size1)
     avid_resized = avid.resize((120,35))
     gcfc_resized = gcfc.resize(new_size)
+    vs_resized = vs.resize(new_size2)
 
     # Add the resized images to the plot
     if st.session_state['template'] == 'SS':
@@ -147,6 +148,9 @@ def create_scatter(player,data,metric1,metric2,pos,league,szn):
             plt.figimage(avid_resized, xo=2450, yo=1990)
     if st.session_state['template'] == 'Game Changer FA':
             plt.figimage(gcfc_resized, xo=2450, yo=1960)
+    if st.session_state['template'] == 'Virtual Scout':
+            plt.figimage(vs_resized, xo=2400, yo=1970)
+
 
     st.pyplot(fig)
     
