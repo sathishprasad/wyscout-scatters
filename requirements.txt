@@ -2,7 +2,6 @@ streamlit==1.11.1
 pandas
 numpy==1.21.0
 snowflake-connector-python==3.0.1
-mplsoccer==1.1.7
 matplotlib==3.3.4
 altair==4.0.0
 xlsxwriter==1.3.8
