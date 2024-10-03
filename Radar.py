@@ -705,7 +705,7 @@ def app():
     data = connect(gender)
     st.title("Viz generator")
     st.markdown("Choose appropriate filters from the menu bar on your left hand side.")
-    cols = ['TFA','SS','BFM','Minnesota','Avid','Game Changer FA','IMAD','SISU','Virtual Scout']
+    cols = ['TFA','SS','BFM','Minnesota','Avid','Game Changer FA','IMAD','SISU','Virtual Scout','We Scout Strikers']
     template = st.sidebar.selectbox("Select colour template",cols)
     if template == 'TFA':
         st.session_state['template'] = 'TFA'
@@ -820,6 +820,20 @@ def app():
         st.session_state['h2'] = '#f73c93'
         st.session_state['h3'] = '#FFFFFF'
         st.session_state['c'] = '#171616'
+        st.session_state['b'] = 'white'
+        path = "PPTelegrafUltraBold.otf"
+        st.session_state['font_normal2'] = FontProperties(fname=path)
+        path1 = "PPTelegrafRegular.otf"
+        st.session_state['font_normal1'] = FontProperties(fname=path1)
+    elif template == 'We Scout Strikers':
+        st.session_state['template'] = 'We Scout Strikers'
+        st.session_state['bg'] = '#040707'
+        st.session_state['bg2'] = '#140f0f'
+        st.session_state['text'] = '#ffffff'
+        st.session_state['h1'] = '#ef5a8f'
+        st.session_state['h2'] = '#fbb821'
+        st.session_state['h3'] = '#ffffff'
+        st.session_state['c'] = '#423e33'
         st.session_state['b'] = 'white'
         path = "PPTelegrafUltraBold.otf"
         st.session_state['font_normal2'] = FontProperties(fname=path)
