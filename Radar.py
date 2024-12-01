@@ -45,12 +45,14 @@ def connect(gender):
         data['Minutes'] = data['Minutes played']
         data['Age'] = data['Age'].fillna(0)
         data['Age'] = pd.to_numeric(data['Age'], errors='coerce')
+        data['Performance'] = data['Goals per 90'] - data['xG per 90']
     else:
         data = pd.read_sql_query("SELECT * FROM WOMENDATA",cnx)
         data['League'] = data['League Name']
         data['Position'] = data['Categorical position']
         data['Name'] = data['Player']
         data['Minutes'] = data['Minutes played']
+        data['Performance'] = data['Goals per 90'] - data['xG per 90']
 
 
 
